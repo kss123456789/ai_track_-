@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <!-- 로그인패턴 -->
+    {% set id_pattern = "^[0-9a-zA-Z-_.]+@[0-9a-zA-Z-_.]+\.[a-zA-Z]{2,3}$" %}
+    {% set pw_pattern = ".{8,}"
+    %}
+    <div class="d-grid gap-2 col-2 mx-auto">
+        <form action="/login" method="post">
+            <div class="mb-3">
+                <label for="user_id" class="form-label">아이디</label><br>
+                <input type="email" class="form-control" name="user_id" required title="ex)elice@elice.com" pattern="{{ id_pattern }}">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">비밀번호</label><br>
+                <input type="password" class="form-control" name="password" required title="8자이상입력해주세요." pattern="{{ pw_pattern }}"><br>
+            </div>
+            <div class="d-grid gap-2 col-8 mx-auto">
+                <button type="submit" class="btn btn-secondary">로그인</button>
+            </div>
+            
+        </form>
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+{% if book_info %}
+    <div class="container">
+        <div class="row row-cols-2">
+            <div>
+                <img src="/static/book_img/{{ book_info.book_id }}.jpg" alt="{{ book_info.book_name }}" width="250px" height="250px">
+            </div>
+            <div>
+                <p>책이름 : {{ book_info.book_name }}</p>
+                <p>출판사 : {{ book_info.publisher }}</p>
+                <p>저자 : {{ book_info.author }}</p>
+                <p>출간일 : {{ book_info.publication_date }}</p>
+                <p>페이지 수 : {{ book_info.pages }}</p>
+                <p>ISBN 코드 : {{ book_info.isbn }}</p>
+            </div>
+        </div>
+        <p>책소개</p>
+        <p>{{ book_info.description }}</p>
+        <p>링크 : {{ book_info.link }}</p>
+        <p>재고 : {{ book_info.stock }}</p>
+        <div class="review_page">
+            <h5>댓글</h5>
+            <ul class="list-group">
+                {% for review in reviews %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            {{ review.user_id }}
+                        </div>
+                        {{ review.review }}
+                        {% if session['user_id'] == review.user_id %}
+                            <a href="{{ url_for('book_detail.delete', review_id=review.review_id) }}" class="btn btn-secondary">삭제</a>
+                        {% endif %}
+                    </div>
+                    {% for i in range(review.rating) %}
+                        <small>⭐</small>
+                    {% endfor %}
+                    <span class="badge bg-primary rounded-pill">{{ review.date }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if session['user_id'] %}
+            <p>댓글작성</p>
+            <div class="review_form">
+                <form name="myform" id="myform" action="{{ url_for('book_detail.write', book_id=book_info.book_id) }}" method="post">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="review" required placeholder="댓글작성">
+                    </div>
+                    <fieldset>
+                        <input type="radio" name="rating" value="5" id="rate1" required><label for="rate1">⭐</label>
+                        <input type="radio" name="rating" value="4" id="rate2" required><label for="rate2">⭐</label>
+                        <input type="radio" name="rating" value="3" id="rate3" required><label for="rate3">⭐</label>
+                        <input type="radio" name="rating" value="2" id="rate4" required><label for="rate4">⭐</label>
+                        <input type="radio" name="rating" value="1" id="rate5" required><label for="rate5">⭐</label>
+                    </fieldset>
+                    <button type="submit" class="btn btn-secondary">등록하기</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #d6d6f1;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">레이서 도서관</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if session['user_id'] %}
+                    <li class="nav-item">
+                        <span class="nav-link" style="color: purple;">안녕하세요! {{ session['user_id'] }} 님!</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/record/record/{{ session['user_id'] }}">대여기록</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/record/borrow_list/{{ session['user_id'] }}">반납하기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">로그아웃</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">로그인</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

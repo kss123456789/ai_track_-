@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if record_page %}
+        <div class="container">
+            <div class="row row-cols-4">
+                {% for record in record_page.items %}
+                    <div class="card">
+                        <img src="/static/book_img/{{ record.book_id }}.jpg" alt="{{ record.book_name }}" width="250px" height="250px">
+                        <p>{{ record.booklist.book_name }}</p>
+                        <div>
+                            {% for i in range(record.booklist.avg_rating) %}
+                                <small>⭐</small>
+                            {% endfor %}
+                        </div>
+                        <p>{{ record.first_date }}</p>
+                        <p>~{{ record.last_date }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if record_page.has_prev %}
+                    <li class="page-item"><a href="?page={{ record_page.prev_num }}">이전</a></li>
+                {% endif %}
+                {% if record_page.has_next %}
+                    <li class="page-item"><a href="?page={{ record_page.next_num }}">다음</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}
