@@ -11,6 +11,7 @@
                             {% for i in range(record.booklist.avg_rating) %}
                                 <small>⭐</small>
                             {% endfor %}
+                            <p>{{ record.first_date }}</p>
                         </div>
                         <a href="/record/back/{{ record.record_id }}" class="btn btn-primary">반납하기</a>
                     </div>
